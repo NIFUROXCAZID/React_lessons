@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Homework 1 Task 5</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Задача 5. Додаток містить масив об’єктів (логін, пароль) --  існуючі логіни і паролі.
+    Користувач вводить логін і пароль, а програма при натисненні на кнопку повідомляє чи може користувач бути авторизованим. -->
+
+    <div id="root"></div>
+    <script type="text/babel">
+        
+        function Access() {
+            const database = [
+                {
+                    login: "user1",
+                    password: "12345",
+                },
+                {
+                    login: "user2",
+                    password: "54321",
+                },
+                {
+                    login: "user3",
+                    password: "0987654321",
+                },
+                {
+                    login: "user4",
+                    password: "11111",
+                },
+                {
+                    login: "user5",
+                    password: "88005553535",
+                }
+            ]
+
+            const [login, setLogin] = React.useState("");
+            const [password, setPassword] = React.useState("");
+
+            function veryficate() {
+                const isValid = database.some((user) => user.login === login && user.password === password);
+
+                if (isValid) {
+                    alert("Вхід успішний ✅");
+                } else {
+                    alert("Невірний логін або пароль ❌");
+                }
+            }
+
+            return (
+                <div>
+                    <label>Login:</label>
+                    <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+                    <br />
+                    <label>Password:</label>
+                    <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <br />
+                    <button onClick={veryficate}>GO</button>
+                </div>
+            )
+        }
+        
+        function App() {
+            return <Access />
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(React.createElement(App))
+    </script>
+
+
+</body>
+
+</html>

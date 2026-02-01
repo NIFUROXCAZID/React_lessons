@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Homework 1 Task 1</title>
+    <!-- Це треба щоб працював react без скачування -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Це треба для JSX Синтаксису -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Задача 1. Вводиться кількість пасажирів. Вивести:
+● скільки потрібно автобусів (кожен автобус на 20 місць)
+● скільки пляшок води (кожному пасажиру 2 пляшки)
+● скільки бутербродів (кожному пасажиру 3 бутерброди) -->
+
+    <!-- контейнер з id="root" буде виводити результат -->
+    <div id="root"></div>
+
+    <!-- JSX-код має бути всередині script з type="text/babel" -->
+    <script type="text/babel">
+        function BusTravel() {
+            const [passangers, setPassangers] = React.useState(0);
+
+            const bus = Math.ceil(passangers / 20) ;
+            const water = passangers * 2;
+            const food = passangers * 3;
+
+            return (
+                <div>
+                    <div>
+                        <input type="number" value={passangers} onChange={(e) => setPassangers(Number(e.target.value))} />
+                    </div>
+                    <div>Автобусів: {bus}</div>
+                    <div>Пляшок води: {water}</div>
+                    <div>Бутербродів: {food}</div>
+                </div>
+            )
+        }
+
+        function App() {
+            // В головному App компоненті ретурнимо інщі компоненти типу <Назва функції компонента />
+            return <BusTravel />
+        }
+        // Рендеримол основний компонент у контейнері <div id="root"></div>
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(React.createElement(App))
+    </script>
+
+
+</body>
+
+</html>

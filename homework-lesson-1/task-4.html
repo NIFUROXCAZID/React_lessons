@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Homework 1 Task 4</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Задача 4. “Рахунок у банку”
+    Вимоги:
+    1) Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.
+    2) Сума автоматично переводиться у долари та євро (фіксований курс задається у data).
+    3) можливість зарахувати суму (контролювати, щоб не була від’ємною)
+    4) можливість зняти (щоб не можна зняти більше ніж є на рахунку)
+    5) при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)
+
+    При зміні суми :
+    - якщо було зняття, то суму відображати червоним
+    - якщо було зарахування, то суму відображати зеленим
+    Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим -->
+
+    <div id="root"></div>
+    <script type="text/babel">
+        function BankAccount() {
+            const [rolledMoney, setRolledMoney] = React.useState(0);
+            const [withdrawedMoney, setWithdrawedMoney] = React.useState(0);
+            const [score, setScore] = React.useState(0);
+            const [lastOp, setLastOp] = React.useState(0);
+            const [dollarSum, setDollarSum] = React.useState(0);
+            const [euroSum, setEuroSum] = React.useState(0);
+            const [tax, setTax] = React.useState(0);
+            const dollarCourse = 47;
+            const euroCourse = 52;
+            const taxRate = 0.97;
+
+            let scoreColor = "black";
+            if (lastOp == 0) {
+                scoreColor = "black";
+            } else if (lastOp == 1) {
+                scoreColor = "green";
+            } else if (lastOp == -1) {
+                scoreColor = "red";
+            }
+
+            function showCurrency(newScore) {
+                setDollarSum((newScore / dollarCourse).toFixed(2));
+                setEuroSum((newScore / euroCourse).toFixed(2));
+            }
+
+            function enrollMoney() {
+                // Краще useEffect але я його ще не знаю.
+                setScore(prevScore => {
+                    const currentOpTax = Number((rolledMoney * (1 - taxRate)).toFixed(2));
+                    const newScore = prevScore + rolledMoney - currentOpTax;
+                    setTax(prevScore => prevScore + currentOpTax);
+                    showCurrency(newScore);
+                    return newScore;
+                });
+                setLastOp(1);
+            }
+
+            function withdrawMoney() {
+                if (score - withdrawedMoney < 0) {
+                    alert("Немає стільки грошей на балансі.");
+                    return;
+                }
+                setScore(prevScore => {
+                    const currentOpTax = Number(withdrawedMoney * (1 - taxRate).toFixed(2));
+                    const newScore = prevScore - withdrawedMoney;
+                    setTax(prevScore => prevScore + currentOpTax);
+                    showCurrency(newScore);
+                    return newScore;
+                });
+                setLastOp(-1);
+            }
+
+            return (
+                <div>
+                    <p>Сума на рахунку <span style={{ color: scoreColor }}>{score}</span> грн</p>
+                    <div>
+                        <p>Зарахувати на рахунок</p>
+                        <input type="number" value={rolledMoney} onChange={(e) => setRolledMoney(Number(e.target.value))} />
+                        <button onClick={enrollMoney}>Зарахувати</button>
+                    </div>
+                    <div>
+                        <p>Зняти з рахунку</p>
+                        <input type="number" value={withdrawedMoney} onChange={(e) => setWithdrawedMoney(Number(e.target.value))} />
+                        <button onClick={withdrawMoney}>Зняти</button>
+                    </div>
+                    <p>Відсотки за обслуговування {tax} грн</p>
+                    <hr style={{ border: "1px solid black" }} />
+                    <p>Сума у доларах: $<span style={{ color: dollarSum < 100 ? "red" : "green" }}>{dollarSum}</span></p>
+                    <p>Сума у євро: €<span style={{ color: euroSum < 100 ? "red" : "green" }}>{euroSum}</span></p>
+                </div>
+            )
+        }
+
+        function App() {
+            return <BankAccount />
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(React.createElement(App))
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Homework 1 Task 3</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Задача 3. Задано початок та кінець діапазону.
+    При натисканні на кнопку випадковим чином генерувати значення з вказаного діапазону та відображати його. -->
+
+    <div id="root"></div>
+    <script type="text/babel">
+        function RangeShowRand() {
+            const [min, setMin] = React.useState(0);
+            const [max, setMax] = React.useState(0);
+            const [generated, setGenerated] = React.useState("");
+
+            function generateNumber() {
+                setGenerated(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+
+            return (
+                <div>
+                    <label>Мінімальне</label>
+                    <input type="number" value={min} onChange={(e) => setMin(Number(e.target.value))} />
+                    <label>Максимальне</label>
+                    <input type="number" value={max} onChange={(e) => setMax(Number(e.target.value))} />
+                    <button onClick={generateNumber} >ЗГЕНЕРУВАТИ</button>
+                    <p>{`Згенероване число: ${generated}`}</p>
+                </div>
+            )
+        }
+        
+        function App() {
+            return <RangeShowRand />
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(React.createElement(App))
+    </script>
+
+
+</body>
+
+</html>

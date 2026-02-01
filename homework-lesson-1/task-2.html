@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Homework 1 Task 2</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+
+<body>
+    <!-- Задача 2. Вводиться номер місяця.
+    Автоматично виводити рекомендований одяг (зима – пальто, літо – шорти ….).
+    Також автоматично виводити зображення з відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс, …). -->
+
+    <div id="root"></div>
+    <script type="text/babel">
+        function SeasonClothing() {
+            const [monthNum, setMonthNum] = React.useState(0);
+
+            const clothesArr = ["Пуховик", "Кофта", "Шорти", "Парка"];
+            const seasonImgArr = [
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIjbI_naD4WHyS5dcOEZaxpHnh9BFMgdEnVw&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-MBLR2b20PRP7JlrEiLFiYbeOBeLYlIWP8g&s",
+                "https://miro.medium.com/v2/resize:fit:1400/0*1DtL639ZXJQj8ZDA.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAQLBdt-6bkpjqwWRcvkL_OlvDLLG8HVGung&s"];
+            let clothes = 0;
+            let imgUrl = "";
+
+            function chooseClothImg() {
+                switch (monthNum) {
+                    case 12:
+                    case 1:
+                    case 2:
+                        clothes = clothesArr[0];
+                        imgUrl = seasonImgArr[0];
+                        break;
+
+                    case 3:
+                    case 4:
+                    case 5:
+                        clothes = clothesArr[1];
+                        imgUrl = seasonImgArr[1];
+                        break;
+
+                    case 6:
+                    case 7:
+                    case 8:
+                        clothes = clothesArr[2];
+                        imgUrl = seasonImgArr[2];
+                        break;
+
+                    case 9:
+                    case 10:
+                    case 11:
+                        clothes = clothesArr[3];
+                        imgUrl = seasonImgArr[3];
+                        break;
+                }
+            }
+            chooseClothImg();
+
+            return (
+                <div>
+                    <input type="number" value={monthNum} onChange={(e) => setMonthNum(Number(e.target.value))} />
+                    <p>Рекомендований одяг: {clothes}</p>
+                    <img style={{ maxWidth: "200px", maxHeight: "auto" }} src={imgUrl} />
+                </div>
+            )
+        }
+
+        function App() {
+            return <SeasonClothing />
+        }
+        
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(React.createElement(App))
+    </script>
+
+
+</body>
+
+</html>
