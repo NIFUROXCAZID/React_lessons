@@ -1,0 +1,51 @@
+.t6-container {
+    padding: 10px;
+    border: 2px solid black;
+}
+.t6-input-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    & label {
+        font-size: 18px;
+        font-weight: 700;
+    }
+    & input {
+        min-width: 220px;
+    }
+}
+.t6-states-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 36px;
+    border: 2px solid black;
+    padding: 12px;
+}
+.t6-states-title {
+    font-size: 22px;
+    font-weight: 700;
+}
+.t6-states-element {
+}
+.t6-states-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 6px;
+}
+.t6-waits-list {
+    
+    &__el {
+        background-color: rgb(236, 236, 236);
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 6px;
+        & p {
+            font-size: 16px;
+            font-weight: 700;
+        }
+    }
+}

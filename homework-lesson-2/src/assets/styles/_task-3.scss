@@ -1,0 +1,10 @@
+.task-3 {
+    padding: 20px;
+    border: 5px solid transparent;
+    &--right {
+        border: 5px solid green;
+    }
+    &--wrong {
+        border: 5px solid red;
+    }
+}
