@@ -1,0 +1,52 @@
+.task-1 {
+    background-color: rgb(222, 231, 252);
+    padding: 15px;
+    margin: 0;
+    border-radius: 6px;
+    &__form {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        & input {
+            height: 20px;
+            font-size: 14px;
+            border-radius: 6px;
+            width: 260px;
+        }
+        & button {
+            // height: 28px;
+            font-size: 16px;
+            margin: 0;
+            padding: 5px;
+        }
+    }
+    &__list {
+        & h3 {
+            margin: 0;
+        }
+    }
+    &__no-message {
+        font-style: italic;
+    }
+    &__message {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+        & strong {
+            padding: 6px 12px;
+            background-color: rgb(14, 3, 54);
+            color: white;
+            border-radius: 12px;
+        }
+        & span {
+            font-weight: 600;
+        }
+        &__like {
+
+        }
+        &__dislike {
+
+        }
+    }
+}
